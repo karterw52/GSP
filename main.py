@@ -145,7 +145,10 @@ def game_over():
     canvas.delete(ALL)
     window.bind("<KeyRelease>", game_restart)
 
-    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2, font=('consolas',70), text="GAME OVER \n Press 'r' to play again", fill="red", tag="gameover")
+    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2 - 30, font=('consolas',70),
+                       text="GAME OVER", fill="red", tag="gameover")
+    canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 40, font=('consolas', 40),
+                       text="Press 'r' to Restart", fill="red", tag="gameover")
 
 
 
