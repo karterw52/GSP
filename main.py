@@ -3,6 +3,7 @@
 # Python Snake
 
 # ************************************
+import os
 
 from tkinter import *
 
@@ -136,10 +137,17 @@ def check_collisions(snake):
     return False
 
 
+def game_restart(event):
+    if event.keysym=='r':
+        window.destroy()
+        os.startfile("main.py")
 def game_over():
     canvas.delete(ALL)
+    window.bind("<KeyRelease>", game_restart)
 
-    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2, font=('consolas',70), text="GAME OVER", fill="red", tag="gameover")
+    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2, font=('consolas',70), text="GAME OVER \n Press 'r' to play again", fill="red", tag="gameover")
+
+
 
 
 window = Tk()
