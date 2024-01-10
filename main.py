@@ -3,6 +3,11 @@
 # Python Snake
 
 # ************************************
+
+global SNAKE_COLOR
+global FOOD_COLOR
+global BACKGROUND_COLOR
+
 import os
 
 from tkinter import *
@@ -10,6 +15,14 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 import random
+
+SNAKE_COLOR = "#00FF00"
+
+FOOD_COLOR = "#FF0000"
+
+BACKGROUND_COLOR = "#000000"
+
+direction = 'down'
 
 def splash():
     global splash
@@ -26,6 +39,13 @@ def splash():
 
     splash.mainloop()
 
+def mode_window():
+    mode = Tk()
+    mode.title('Select Mode')
+    mode.geometry("700x700")
+
+    mode.mainloop()
+
 
 GAME_WIDTH = 700
 
@@ -37,11 +57,7 @@ SPACE_SIZE = 50
 
 BODY_PARTS = 3
 
-SNAKE_COLOR = "#00FF00"
 
-FOOD_COLOR = "#FF0000"
-
-BACKGROUND_COLOR = "#000000"
 
 
 class Snake:
@@ -159,6 +175,10 @@ def game_restart(event):
         os.startfile("main.py")
     elif event.keysym=='s':
         splash.destroy()
+        main_window()
+    elif event.keysym=='m':
+        splash.destroy()
+        mode_window()
 
 def game_over():
     canvas.delete(ALL)
@@ -170,55 +190,56 @@ def game_over():
                        text="Press 'r' to Restart", fill="red", tag="gameover")
 
 
+def main_window():
+    global window, canvas, label
+    window = Tk()
+
+    window.title("Snake game")
+
+    window.resizable(False, False)
+
+    score = 0
+
+    direction = 'down'
+
+    label = Label(window, text="Score:{}".format(score), font=('consolas', 40))
+
+    label.pack()
+
+    canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
+
+    canvas.pack()
+
+    window.update()
+
+    window_width = window.winfo_width()
+
+    window_height = window.winfo_height()
+
+    screen_width = window.winfo_screenwidth()
+
+    screen_height = window.winfo_screenheight()
+
+    x = int((screen_width / 2) - (window_width / 2))
+
+    y = int((screen_height / 2) - (window_height / 2))
+
+    window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+
+    window.bind('<Left>', lambda event: change_direction('left'))
+
+    window.bind('<Right>', lambda event: change_direction('right'))
+
+    window.bind('<Up>', lambda event: change_direction('up'))
+
+    window.bind('<Down>', lambda event: change_direction('down'))
+
+    snake = Snake()
+
+    food = Food()
+
+    next_turn(snake, food)
+
+    window.mainloop()
+
 splash()
-
-window = Tk()
-
-window.title("Snake game")
-
-window.resizable(False, False)
-
-score = 0
-
-direction = 'down'
-
-label = Label(window, text="Score:{}".format(score), font=('consolas', 40))
-
-label.pack()
-
-canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
-
-canvas.pack()
-
-window.update()
-
-window_width = window.winfo_width()
-
-window_height = window.winfo_height()
-
-screen_width = window.winfo_screenwidth()
-
-screen_height = window.winfo_screenheight()
-
-x = int((screen_width / 2) - (window_width / 2))
-
-y = int((screen_height / 2) - (window_height / 2))
-
-window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-
-window.bind('<Left>', lambda event: change_direction('left'))
-
-window.bind('<Right>', lambda event: change_direction('right'))
-
-window.bind('<Up>', lambda event: change_direction('up'))
-
-window.bind('<Down>', lambda event: change_direction('down'))
-
-snake = Snake()
-
-food = Food()
-
-next_turn(snake, food)
-
-window.mainloop()
-
