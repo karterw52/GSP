@@ -172,7 +172,7 @@ def check_collisions(snake):
 def game_restart(event):
     if event.keysym=='r':
         window.destroy()
-        os.startfile("main.py")
+        main_window()
     elif event.keysym=='s':
         splash.destroy()
         main_window()
