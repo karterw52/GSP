@@ -7,8 +7,24 @@ import os
 
 from tkinter import *
 
+from PIL import ImageTk, Image
+
 import random
 
+def splash():
+    global splash
+    splash = Tk()
+    splash.title('Start Screen')
+    splash.geometry("700x700")
+
+
+    img = ImageTk.PhotoImage(Image.open("snake.png"))
+    panel = Label(splash, image = img)
+    panel.pack(side = "bottom", fill = "both")
+
+    splash.bind("<KeyRelease>", game_restart)
+
+    splash.mainloop()
 
 
 GAME_WIDTH = 700
@@ -141,6 +157,9 @@ def game_restart(event):
     if event.keysym=='r':
         window.destroy()
         os.startfile("main.py")
+    elif event.keysym=='s':
+        splash.destroy()
+
 def game_over():
     canvas.delete(ALL)
     window.bind("<KeyRelease>", game_restart)
@@ -151,7 +170,7 @@ def game_over():
                        text="Press 'r' to Restart", fill="red", tag="gameover")
 
 
-
+splash()
 
 window = Tk()
 
@@ -163,22 +182,15 @@ score = 0
 
 direction = 'down'
 
-
 label = Label(window, text="Score:{}".format(score), font=('consolas', 40))
 
 label.pack()
-
-
 
 canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
 
 canvas.pack()
 
-
-
 window.update()
-
-
 
 window_width = window.winfo_width()
 
@@ -188,17 +200,11 @@ screen_width = window.winfo_screenwidth()
 
 screen_height = window.winfo_screenheight()
 
+x = int((screen_width / 2) - (window_width / 2))
 
-
-x = int((screen_width/2) - (window_width/2))
-
-y = int((screen_height/2) - (window_height/2))
-
-
+y = int((screen_height / 2) - (window_height / 2))
 
 window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-
-
 
 window.bind('<Left>', lambda event: change_direction('left'))
 
@@ -208,16 +214,11 @@ window.bind('<Up>', lambda event: change_direction('up'))
 
 window.bind('<Down>', lambda event: change_direction('down'))
 
-
-
 snake = Snake()
 
 food = Food()
 
-
-
 next_turn(snake, food)
 
-
-
 window.mainloop()
+
