@@ -191,7 +191,7 @@ def game_over():
 
 
 def main_window():
-    global window, canvas, label
+    global window, canvas, label, score
     window = Tk()
 
     window.title("Snake game")
