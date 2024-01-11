@@ -7,6 +7,8 @@
 global SNAKE_COLOR
 global FOOD_COLOR
 global BACKGROUND_COLOR
+global SPEED
+
 
 import os
 
@@ -15,6 +17,10 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 import random
+
+import matplotlib.image as mpimg
+
+img2 = mpimg.imread('snake.png')
 
 SNAKE_COLOR = "#00FF00"
 
@@ -43,6 +49,10 @@ def mode_window():
     mode = Tk()
     mode.title('Select Mode')
     mode.geometry("700x700")
+
+    img1 = ImageTk.PhotoImage(Image.open("select mode.png"))
+    panel = Label(mode, image=img1)
+    panel.pack(side="bottom", fill="both")
 
     mode.mainloop()
 
@@ -74,6 +84,8 @@ class Snake:
             self.coordinates.append([0, 0])
 
         for x, y in self.coordinates:
+
+            #square = canvas.create_image(x, y, x + SPACE_SIZE, y + SPACE_SIZE, image = img2)
 
             square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR, tag="snake")
 
@@ -179,6 +191,11 @@ def game_restart(event):
     elif event.keysym=='m':
         splash.destroy()
         mode_window()
+    elif event.keysym=='k':
+        if event.keysym=='i':
+            if event.keysym=='n':
+                if event.keysym=='g':
+                    print('king james')
 
 def game_over():
     canvas.delete(ALL)
