@@ -89,7 +89,7 @@ def disco_time():
         colours = ["#7C02A8", "#251ABA", "#EE0008", "#178B00", "#DCDC00"]
         BACKGROUND_COLOR = colours[random_number]
         canvas.config(background=BACKGROUND_COLOR)
-        time.sleep(0.5)
+        time.sleep(1)
 
 
 GAME_WIDTH = 700
@@ -120,7 +120,7 @@ class Snake:
 
         for x, y in self.coordinates:
 
-            #square = canvas.create_image(x, y, x + SPACE_SIZE, y + SPACE_SIZE, image = img2)
+
 
             square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR, tag="snake")
 
