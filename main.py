@@ -4,13 +4,10 @@
 
 # ************************************
 
-global SNAKE_COLOR
-global FOOD_COLOR
-global BACKGROUND_COLOR
-global SPEED
+
+global splash
 
 
-import os
 
 from tkinter import *
 
@@ -20,18 +17,29 @@ import random
 
 import matplotlib.image as mpimg
 
+import time
+
+import threading
+
 img2 = mpimg.imread('snake.png')
 
-SNAKE_COLOR = "#00FF00"
-
-FOOD_COLOR = "#FF0000"
-
-BACKGROUND_COLOR = "#000000"
+disco = False
 
 direction = 'down'
 
-def splash():
+def splash_window():
     global splash
+    global SNAKE_COLOR
+    global FOOD_COLOR
+    global BACKGROUND_COLOR
+    global SPEED
+
+    SNAKE_COLOR = "#00FF00"
+
+    FOOD_COLOR = "#FF0000"
+
+    BACKGROUND_COLOR = "#000000"
+
     splash = Tk()
     splash.title('Start Screen')
     splash.geometry("700x700")
@@ -46,6 +54,7 @@ def splash():
     splash.mainloop()
 
 def mode_window():
+    global mode
     mode = Tk()
     mode.title('Select Mode')
     mode.geometry("700x700")
@@ -54,7 +63,33 @@ def mode_window():
     panel = Label(mode, image=img1)
     panel.pack(side="bottom", fill="both")
 
+    mode.bind("<KeyRelease>",change_mode)
+
     mode.mainloop()
+
+def change_mode(event):
+    global SNAKE_COLOR
+    global FOOD_COLOR
+    global BACKGROUND_COLOR
+    global disco
+    if event.keysym == 's':
+        mode.destroy()
+        main_window()
+    elif event.keysym == '1':
+        BACKGROUND_COLOR = "#FFFFFF"
+    elif event.keysym == '4':
+        disco = True
+
+def disco_time():
+    global canvas
+    print('hsfgio')
+    global BACKGROUND_COLOR
+    while True:
+        random_number = random.randint(0,4)
+        colours = ["#7C02A8", "#251ABA", "#EE0008", "#178B00", "#DCDC00"]
+        BACKGROUND_COLOR = colours[random_number]
+        canvas.config(background=BACKGROUND_COLOR)
+        time.sleep(0.5)
 
 
 GAME_WIDTH = 700
@@ -208,7 +243,9 @@ def game_over():
 
 
 def main_window():
-    global window, canvas, label, score
+    global window, canvas, label, score, disco
+
+
     window = Tk()
 
     window.title("Snake game")
@@ -226,6 +263,7 @@ def main_window():
     canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
 
     canvas.pack()
+
 
     window.update()
 
@@ -257,6 +295,11 @@ def main_window():
 
     next_turn(snake, food)
 
+    if disco == True:
+        print('it worked')
+        thread = threading.Timer(1, disco_time)
+        thread.start()
+
     window.mainloop()
 
-splash()
+splash_window()
