@@ -16,6 +16,10 @@ import threading
 
 global splash
 
+import winsound
+
+winsound.PlaySound('Background.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+
 GAME_WIDTH = 700
 
 GAME_HEIGHT = 700
