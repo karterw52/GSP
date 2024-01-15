@@ -4,11 +4,6 @@
 
 # ************************************
 
-
-global splash
-
-
-
 from tkinter import *
 
 from PIL import ImageTk, Image
@@ -18,6 +13,8 @@ import random
 import time
 
 import threading
+
+global splash
 
 GAME_WIDTH = 700
 
@@ -50,14 +47,14 @@ def splash_window():
     splash.title('Start Screen')
     splash.geometry("700x700")
 
-
     img = ImageTk.PhotoImage(Image.open("snake.png"))
     panel = Label(splash, image = img)
-    panel.pack(side = "bottom", fill = "both")
+    panel.pack(side="bottom", fill="both")
 
     splash.bind("<KeyRelease>", game_restart)
 
     splash.mainloop()
+
 
 def mode_window():
     global mode
@@ -69,13 +66,12 @@ def mode_window():
     panel = Label(mode, image=img1)
     panel.pack(side="bottom", fill="both")
 
-    mode.bind("<KeyRelease>",change_mode)
+    mode.bind("<KeyRelease>", change_mode)
 
     mode.mainloop()
 
+
 def change_mode(event):
-    global SNAKE_COLOR
-    global FOOD_COLOR
     global BACKGROUND_COLOR
     global SPEED
     global disco
@@ -90,6 +86,7 @@ def change_mode(event):
         SPEED = 140
     elif event.keysym == '3':
         SPEED = 50
+
 
 def disco_time():
     global canvas
@@ -212,26 +209,21 @@ def check_collisions(snake):
 
 
 def game_restart(event):
-    if event.keysym=='r':
+    if event.keysym == 'r':
         window.destroy()
         main_window()
-    elif event.keysym=='s':
+    elif event.keysym == 's':
         splash.destroy()
         main_window()
-    elif event.keysym=='m':
+    elif event.keysym == 'm':
         splash.destroy()
         mode_window()
-    elif event.keysym=='k':
-        if event.keysym=='i':
-            if event.keysym=='n':
-                if event.keysym=='g':
-                    print('king james')
 
 def game_over():
     canvas.delete(ALL)
     window.bind("<KeyRelease>", game_restart)
 
-    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2 - 30, font=('consolas',70),
+    canvas.create_text(canvas.winfo_width()/2, canvas.winfo_height()/2 - 30, font=('consolas', 70),
                        text="GAME OVER", fill="red", tag="gameover")
     canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 40, font=('consolas', 40),
                        text="Press 'r' to Restart", fill="red", tag="gameover")
@@ -240,8 +232,7 @@ def game_over():
 def main_window():
     global window, canvas, label, score, disco
 
-    if disco == True:
-        print('it worked')
+    if disco is True:
         thread = threading.Timer(1, disco_time)
         thread.start()
 
@@ -252,8 +243,6 @@ def main_window():
     window.resizable(False, False)
 
     score = 0
-
-    direction = 'down'
 
     label = Label(window, text="Score:{}".format(score), font=('consolas', 40))
 
@@ -294,5 +283,6 @@ def main_window():
     next_turn(snake, food)
 
     window.mainloop()
+
 
 splash_window()
