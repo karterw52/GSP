@@ -15,13 +15,19 @@ from PIL import ImageTk, Image
 
 import random
 
-import matplotlib.image as mpimg
-
 import time
 
 import threading
 
-img2 = mpimg.imread('snake.png')
+GAME_WIDTH = 700
+
+GAME_HEIGHT = 700
+
+SPEED = 90
+
+SPACE_SIZE = 50
+
+BODY_PARTS = 3
 
 disco = False
 
@@ -71,6 +77,7 @@ def change_mode(event):
     global SNAKE_COLOR
     global FOOD_COLOR
     global BACKGROUND_COLOR
+    global SPEED
     global disco
     if event.keysym == 's':
         mode.destroy()
@@ -79,10 +86,13 @@ def change_mode(event):
         BACKGROUND_COLOR = "#FFFFFF"
     elif event.keysym == '4':
         disco = True
+    elif event.keysym == '2':
+        SPEED = 140
+    elif event.keysym == '3':
+        SPEED = 50
 
 def disco_time():
     global canvas
-    print('hsfgio')
     global BACKGROUND_COLOR
     while True:
         random_number = random.randint(0,4)
@@ -90,19 +100,6 @@ def disco_time():
         BACKGROUND_COLOR = colours[random_number]
         canvas.config(background=BACKGROUND_COLOR)
         time.sleep(1)
-
-
-GAME_WIDTH = 700
-
-GAME_HEIGHT = 700
-
-SPEED = 90
-
-SPACE_SIZE = 50
-
-BODY_PARTS = 3
-
-
 
 
 class Snake:
@@ -119,8 +116,6 @@ class Snake:
             self.coordinates.append([0, 0])
 
         for x, y in self.coordinates:
-
-
 
             square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR, tag="snake")
 
@@ -245,6 +240,10 @@ def game_over():
 def main_window():
     global window, canvas, label, score, disco
 
+    if disco == True:
+        print('it worked')
+        thread = threading.Timer(1, disco_time)
+        thread.start()
 
     window = Tk()
 
@@ -263,7 +262,6 @@ def main_window():
     canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
 
     canvas.pack()
-
 
     window.update()
 
@@ -294,11 +292,6 @@ def main_window():
     food = Food()
 
     next_turn(snake, food)
-
-    if disco == True:
-        print('it worked')
-        thread = threading.Timer(1, disco_time)
-        thread.start()
 
     window.mainloop()
 
