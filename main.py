@@ -100,7 +100,7 @@ def disco_time():
     i = 1
     while i == 1:
         winsound.PlaySound('DiscoTimeIntro.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
-        time.sleep(10)
+        time.sleep(7.25)
         winsound.PlaySound('DiscoTimeSound.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
         i -= 1
     while True:
