@@ -32,6 +32,10 @@ disco = False
 
 direction = 'down'
 
+
+
+img = Image.open("snake.png")
+
 def splash_window():
     global splash
     global SNAKE_COLOR
@@ -93,8 +97,12 @@ def change_mode(event):
 def disco_time():
     global canvas
     global BACKGROUND_COLOR
-    winsound.PlaySound('DiscoTimeIntro.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
-    winsound.PlaySound('DiscoTimeSound.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+    i = 1
+    while i == 1:
+        winsound.PlaySound('DiscoTimeIntro.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+        time.sleep(10)
+        winsound.PlaySound('DiscoTimeSound.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+        i -= 1
     while True:
         random_number = random.randint(0,4)
         colours = ["#7C02A8", "#251ABA", "#EE0008", "#178B00", "#DCDC00"]
@@ -104,6 +112,7 @@ def disco_time():
 
 
 class Snake:
+
     def __init__(self):
 
         self.body_size = BODY_PARTS
