@@ -18,8 +18,6 @@ global splash
 
 import winsound
 
-winsound.PlaySound('Background.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
-
 GAME_WIDTH = 700
 
 GAME_HEIGHT = 700
@@ -95,6 +93,8 @@ def change_mode(event):
 def disco_time():
     global canvas
     global BACKGROUND_COLOR
+    winsound.PlaySound('DiscoTimeIntro.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
+    winsound.PlaySound('DiscoTimeSound.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
     while True:
         random_number = random.randint(0,4)
         colours = ["#7C02A8", "#251ABA", "#EE0008", "#178B00", "#DCDC00"]
@@ -232,9 +232,11 @@ def game_over():
     canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 40, font=('consolas', 40),
                        text="Press 'r' to Restart", fill="red", tag="gameover")
 
-
+4
 def main_window():
     global window, canvas, label, score, disco
+
+    winsound.PlaySound('Background.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
 
     if disco is True:
         thread = threading.Timer(1, disco_time)
