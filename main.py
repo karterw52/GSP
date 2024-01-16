@@ -243,7 +243,9 @@ def check_collisions(snake):
 
 
 def game_restart(event):
+    global direction
     if event.keysym == 'r':
+        direction = 'dowm'
         window.destroy()
         main_window()
     elif event.keysym == 's':
