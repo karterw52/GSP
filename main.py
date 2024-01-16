@@ -262,7 +262,7 @@ def game_over():
     canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 40, font=('consolas', 40),
                        text="Press 'r' to Restart", fill="red", tag="gameover")
 
-4
+
 def main_window():
     global window, canvas, label, score, disco, image, the_canvas,basketball
 
