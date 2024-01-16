@@ -141,7 +141,7 @@ class Snake:
             if lebron == True:
                 square = canvas.create_image(x, y, anchor=N, image=image)
             elif lebron == False:
-                square = canvas.create_rectanlge(x, y, x + SPACE_SIZE, Y + SPACE_SIZE, fill=SNAKE_COLOR, tag='snake')
+                square = canvas.create_rectangle(x, y, x + SPACE_SIZE, Y + SPACE_SIZE, fill=SNAKE_COLOR, tag='snake')
 
 
             self.squares.append(square)
