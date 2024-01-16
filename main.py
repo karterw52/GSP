@@ -14,15 +14,19 @@ import time
 
 import threading
 
+import winsound
+
 global splash
 
-import winsound
+global lebron
+
+lebron = False
 
 GAME_WIDTH = 700
 
 GAME_HEIGHT = 700
 
-SPEED = 90
+SPEED = 120
 
 SPACE_SIZE = 50
 
@@ -81,6 +85,7 @@ def change_mode(event):
     global BACKGROUND_COLOR
     global SPEED
     global disco
+    global lebron
     if event.keysym == 's':
         mode.destroy()
         main_window()
@@ -92,6 +97,9 @@ def change_mode(event):
         SPEED = 140
     elif event.keysym == '3':
         SPEED = 50
+    elif event.keysym == '6':
+        lebron = True
+
 
 
 def disco_time():
@@ -113,6 +121,7 @@ def disco_time():
 
 class Snake:
 
+
     def __init__(self):
 
         self.body_size = BODY_PARTS
@@ -127,7 +136,13 @@ class Snake:
 
         for x, y in self.coordinates:
 
-            square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR, tag="snake")
+            #square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR, tag="snake")
+
+            if lebron == True:
+                square = canvas.create_image(x, y, anchor=N, image=image)
+            elif lebron == False:
+                square = canvas.create_rectanlge(x, y, x + SPACE_SIZE, Y + SPACE_SIZE, fill=SNAKE_COLOR, tag='snake')
+
 
             self.squares.append(square)
 
@@ -140,11 +155,14 @@ class Food:
         y = random.randint(0, (GAME_HEIGHT / SPACE_SIZE) - 1) * SPACE_SIZE
 
         self.coordinates = [x, y]
-
-        canvas.create_oval(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=FOOD_COLOR, tag="food")
+        if lebron == False:
+            canvas.create_oval(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=FOOD_COLOR, tag="food")
+        elif lebron == True:
+            canvas.create_image(x, y, anchor=N, image=basketball)
 
 
 def next_turn(snake, food):
+
     x, y = snake.coordinates[0]
 
     if direction == "up":
@@ -165,7 +183,10 @@ def next_turn(snake, food):
 
     snake.coordinates.insert(0, (x, y))
 
-    square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill=SNAKE_COLOR)
+    if lebron == True:
+        square = canvas.create_image(x, y, anchor=N,image=image)
+    elif lebron == False:
+        square = canvas.create_rectanlge(x,y,x + SPACE_SIZE, Y + SPACE_SIZE, fill=SNAKE_COLOR, tag='snake')
 
     snake.squares.insert(0, square)
 
@@ -243,7 +264,9 @@ def game_over():
 
 4
 def main_window():
-    global window, canvas, label, score, disco
+    global window, canvas, label, score, disco, image, the_canvas,basketball
+
+
 
     winsound.PlaySound('Background.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
 
@@ -276,6 +299,12 @@ def main_window():
     screen_width = window.winfo_screenwidth()
 
     screen_height = window.winfo_screenheight()
+
+    image = PhotoImage(file='lebron.png')
+    basketball = PhotoImage(file='basketball.png')
+
+    the_canvas = Canvas(window)
+    the_canvas.pack(pady=1)
 
     x = int((screen_width / 2) - (window_width / 2))
 
