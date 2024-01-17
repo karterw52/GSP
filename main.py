@@ -1,3 +1,7 @@
+#######################################################
+#Chat assisted with refactoring the code
+#######################################################
+
 from tkinter import *
 from PIL import ImageTk, Image
 import random
@@ -94,12 +98,9 @@ class Food:
         x = random.randint(0, (GAME_WIDTH / SPACE_SIZE) - 1) * SPACE_SIZE
         y = random.randint(0, (GAME_HEIGHT / SPACE_SIZE) - 1) * SPACE_SIZE
         self.coordinates = [x, y]
-        self.image = canvas.create_image(x, y, anchor=N, image=basketball) if lebron else canvas.create_oval(
+        canvas.create_image(x, y, anchor=N, image=basketball) if lebron else canvas.create_oval(
             x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill="#FF0000", tag="food"
         )
-
-    def delete(self):
-        canvas.delete(self.image)
 
 def next_turn(snake, food):
     global score
@@ -125,7 +126,7 @@ def next_turn(snake, food):
     if x == food.coordinates[0] and y == food.coordinates[1]:
         score += 1
         label.config(text="Score:{}".format(score))
-        food.delete()  # Delete the previous food item
+        canvas.delete("food")
         food = Food()
     else:
         del snake.coordinates[-1]
