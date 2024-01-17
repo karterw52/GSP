@@ -12,6 +12,7 @@ SPEED = 120
 SPACE_SIZE = 50
 BODY_PARTS = 3
 
+#Jack is a monkey
 # Global variables
 direction = 'down'
 disco = False
