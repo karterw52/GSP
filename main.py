@@ -12,7 +12,6 @@ SPEED = 120
 SPACE_SIZE = 50
 BODY_PARTS = 3
 
-
 # Global variables
 direction = 'down'
 disco = False
@@ -101,9 +100,12 @@ class Food:
         x = random.randint(0, (GAME_WIDTH / SPACE_SIZE) - 1) * SPACE_SIZE
         y = random.randint(0, (GAME_HEIGHT / SPACE_SIZE) - 1) * SPACE_SIZE
         self.coordinates = [x, y]
-        canvas.create_image(x, y, anchor=N, image=basketball) if lebron else canvas.create_oval(
+        self.image = canvas.create_image(x, y, anchor=N, image=basketball) if lebron else canvas.create_oval(
             x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill="#FF0000", tag="food"
         )
+
+    def delete_food(self):
+        canvas.delete(self.image)
 
 
 def next_turn(snake, food):
@@ -130,7 +132,7 @@ def next_turn(snake, food):
     if x == food.coordinates[0] and y == food.coordinates[1]:
         score += 1
         label.config(text="Score:{}".format(score))
-        canvas.delete("food")
+        food.delete_food()
         food = Food()
     else:
         del snake.coordinates[-1]
