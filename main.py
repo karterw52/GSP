@@ -16,6 +16,8 @@ BODY_PARTS = 3
 direction = 'down'
 disco = False
 lebron = False
+perfection = False
+i = 0
 
 
 def splash_window():
@@ -46,7 +48,7 @@ def mode_window():
 
 
 def change_mode(event, mode):
-    global BACKGROUND_COLOR, SPEED, disco, lebron
+    global BACKGROUND_COLOR, SPEED, disco, lebron, perfection
 
     if event.keysym == 's':
         mode.destroy()
@@ -61,6 +63,8 @@ def change_mode(event, mode):
         SPEED = 50
     elif event.keysym == '6':
         lebron = True
+    elif event.keysym == '9':
+        perfection = True
 
 
 def disco_time():
@@ -73,10 +77,10 @@ def disco_time():
 
     while True:
         random_number = random.randint(0, 4)
-        colours = ["#7C02A8", "#251ABA", "#EE0008", "#178B00", "#DCDC00"]
+        colours = ["#7C02A8", "#251ABA", "#EE0008", "#178B00", "#DCDC00", '#000000']
         BACKGROUND_COLOR = colours[random_number]
         canvas.config(background=BACKGROUND_COLOR)
-        time.sleep(1)
+        time.sleep(2)
 
 
 class Snake:
@@ -110,6 +114,7 @@ class Food:
 
 def next_turn(snake, food):
     global score
+    global i
 
     x, y = snake.coordinates[0]
 
@@ -124,9 +129,20 @@ def next_turn(snake, food):
 
     snake.coordinates.insert(0, (x, y))
 
-    square = canvas.create_image(x, y, anchor=N, image=image) if lebron else canvas.create_rectangle(
-        x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill="#00FF00", tag='snake'
-    )
+    if lebron is True:
+        square = canvas.create_image(x, y, anchor=N, image=image)
+    elif lebron is False and perfection is False:
+        square = canvas.create_rectangle(x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill="#00FF00", tag='snake')
+    elif perfection is True:
+        i += 1
+        if i % 3 == 0:
+            square = canvas.create_image(x, y, anchor=N, image=shane)
+        elif i % 3 == 1:
+            square = canvas.create_image(x, y, anchor=N, image=henry)
+        elif i % 3 == 2:
+            square = canvas.create_image(x, y, anchor=N, image=hariz)
+
+
     snake.squares.insert(0, square)
 
     if x == food.coordinates[0] and y == food.coordinates[1]:
@@ -200,7 +216,7 @@ def game_over():
 
 
 def main_window():
-    global window, canvas, label, score, disco, image, the_canvas, basketball
+    global window, canvas, label, score, disco, image, the_canvas, basketball, shane, henry, hariz
 
     # Play background music
     winsound.PlaySound('Background.wav', winsound.SND_ALIAS | winsound.SND_ASYNC)
@@ -228,6 +244,9 @@ def main_window():
 
     image = PhotoImage(file='lebron.png')
     basketball = PhotoImage(file='basketball.png')
+    shane = PhotoImage(file='shane.png')
+    henry = PhotoImage(file='henry.png')
+    hariz = PhotoImage(file='hariz.png')
 
     the_canvas = Canvas(window)
     the_canvas.pack(pady=1)
