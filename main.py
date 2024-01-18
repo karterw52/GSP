@@ -1,7 +1,3 @@
-#######################################################
-#Chat assisted with refactoring the code
-#######################################################
-
 from tkinter import *
 from PIL import ImageTk, Image
 import random
@@ -16,10 +12,12 @@ SPEED = 120
 SPACE_SIZE = 50
 BODY_PARTS = 3
 
+
 # Global variables
 direction = 'down'
 disco = False
 lebron = False
+
 
 def splash_window():
     splash = Tk()
@@ -34,6 +32,7 @@ def splash_window():
     splash.bind("<KeyRelease>", lambda event: game_restart(event, splash))
     splash.mainloop()
 
+
 def mode_window():
     mode = Tk()
     mode.title('Select Mode')
@@ -45,6 +44,7 @@ def mode_window():
 
     mode.bind("<KeyRelease>", lambda event: change_mode(event, mode))
     mode.mainloop()
+
 
 def change_mode(event, mode):
     global BACKGROUND_COLOR, SPEED, disco, lebron
@@ -63,6 +63,7 @@ def change_mode(event, mode):
     elif event.keysym == '6':
         lebron = True
 
+
 def disco_time():
     global BACKGROUND_COLOR, canvas
 
@@ -77,6 +78,7 @@ def disco_time():
         BACKGROUND_COLOR = colours[random_number]
         canvas.config(background=BACKGROUND_COLOR)
         time.sleep(1)
+
 
 class Snake:
     def __init__(self):
@@ -93,6 +95,7 @@ class Snake:
             )
             self.squares.append(square)
 
+
 class Food:
     def __init__(self):
         x = random.randint(0, (GAME_WIDTH / SPACE_SIZE) - 1) * SPACE_SIZE
@@ -101,6 +104,7 @@ class Food:
         canvas.create_image(x, y, anchor=N, image=basketball) if lebron else canvas.create_oval(
             x, y, x + SPACE_SIZE, y + SPACE_SIZE, fill="#FF0000", tag="food"
         )
+
 
 def next_turn(snake, food):
     global score
@@ -138,6 +142,7 @@ def next_turn(snake, food):
     else:
         window.after(SPEED, next_turn, snake, food)
 
+
 def change_direction(new_direction):
     global direction
     if new_direction == 'left' and direction != 'right':
@@ -148,6 +153,7 @@ def change_direction(new_direction):
         direction = new_direction
     elif new_direction == 'down' and direction != 'up':
         direction = new_direction
+
 
 def check_collisions(snake):
     x, y = snake.coordinates[0]
@@ -160,6 +166,7 @@ def check_collisions(snake):
             return True
 
     return False
+
 
 def game_restart(event, window):
     global direction
@@ -175,6 +182,7 @@ def game_restart(event, window):
         window.destroy()
         mode_window()
 
+
 def game_over():
     canvas.delete(ALL)
     window.bind("<KeyRelease>", lambda event: game_restart(event, window))
@@ -187,6 +195,7 @@ def game_over():
         canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 40, font=('consolas', 40),
         text="Press 'r' to Restart", fill="red", tag="gameover"
     )
+
 
 def main_window():
     global window, canvas, label, score, disco, image, the_canvas, basketball
@@ -236,5 +245,6 @@ def main_window():
     next_turn(snake, food)
 
     window.mainloop()
+
 
 splash_window()
