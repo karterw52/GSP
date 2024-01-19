@@ -4,6 +4,7 @@ import random
 import time
 import threading
 import winsound
+import database
 
 # Constants
 GAME_WIDTH = 700
@@ -18,6 +19,7 @@ disco = False
 lebron = False
 perfection = False
 i = 0
+connection = database.connect()
 
 
 def splash_window():
@@ -136,11 +138,11 @@ def next_turn(snake, food):
     elif perfection is True:
         i += 1
         if i % 3 == 0:
-            square = canvas.create_image(x, y, anchor=N, image=shane)
+            square = canvas.create_image(x, y, image=shane)
         elif i % 3 == 1:
-            square = canvas.create_image(x, y, anchor=N, image=henry)
+            square = canvas.create_image(x, y, image=henry)
         elif i % 3 == 2:
-            square = canvas.create_image(x, y, anchor=N, image=hariz)
+            square = canvas.create_image(x, y, image=hariz)
 
 
     snake.squares.insert(0, square)
@@ -202,12 +204,19 @@ def game_restart(event, window):
 
 
 def game_over():
+    global connection, score
     canvas.delete(ALL)
+    database.add_score(connection, score)
+    high_score = database.get_highest_score(connection)
     window.bind("<KeyRelease>", lambda event: game_restart(event, window))
 
     canvas.create_text(
         canvas.winfo_width() / 2, canvas.winfo_height() / 2 - 30, font=('consolas', 70),
         text="GAME OVER", fill="red", tag="gameover"
+    )
+    canvas.create_text(
+        canvas.winfo_width() / 2, canvas.winfo_height() - 600, font=('consolas', 70),
+        text=f"High Score = {high_score[0]}", fill="red", tag="gameover"
     )
     canvas.create_text(
         canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 40, font=('consolas', 40),
