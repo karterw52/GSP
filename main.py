@@ -6,6 +6,7 @@ import threading
 import winsound
 import database
 
+# ChatGPT helped with refactoring our code, but did not create any functions
 # Constants
 GAME_WIDTH = 700
 GAME_HEIGHT = 700
