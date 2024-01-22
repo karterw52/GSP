@@ -144,7 +144,6 @@ def next_turn(snake, food):
         elif i % 3 == 2:
             square = canvas.create_image(x, y, image=hariz)
 
-
     snake.squares.insert(0, square)
 
     if x == food.coordinates[0] and y == food.coordinates[1]:

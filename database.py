@@ -23,6 +23,12 @@ def create_tables(connection):
 
 def add_score(connection, score):
     with connection:
+        cursor = connection.cursor()
+        try:
+            cursor.execute(CREATE_SCORE_TABLE)
+        except sqlite3.OperationalError:
+            pass
+
         connection.execute(INSERT_SCORE, (score,))
 
 
@@ -30,12 +36,9 @@ def get_highest_score(connection):
     with connection:
         return connection.execute(GET_HIGHEST_SCORE).fetchone()
 
+
 '''def new_highest_score(connection):
     second = 2
     with connection:
         if connection.execute(GET_HIGHEST_SCORE).fetchone()
         if connection.execute(NEW_HIGHEST_SCORE)'''
-
-
-
-
