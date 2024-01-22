@@ -215,7 +215,7 @@ def game_over():
         text="GAME OVER", fill="red", tag="gameover"
     )
     canvas.create_text(
-        canvas.winfo_width() / 2, canvas.winfo_height() - 600, font=('consolas', 70),
+        canvas.winfo_width() / 2, canvas.winfo_height() - 600, font=('consolas', 50),
         text=f"High Score = {high_score[0]}", fill="red", tag="gameover"
     )
     canvas.create_text(
