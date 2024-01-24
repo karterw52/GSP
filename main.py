@@ -29,8 +29,8 @@ def splash_window():
     splash.geometry("700x700")
 
     # Display an image on the splash screen
-    img = ImageTk.PhotoImage(Image.open("snake.png"))
-    panel = Label(splash, image=img)
+    image = ImageTk.PhotoImage(Image.open("snake.png"))
+    panel = Label(splash, image=image)
     panel.pack(side="bottom", fill="both")
 
     splash.bind("<KeyRelease>", lambda event: game_restart(event, splash))
@@ -42,8 +42,8 @@ def mode_window():
     mode.title('Select Mode')
     mode.geometry("700x700")
 
-    img1 = ImageTk.PhotoImage(Image.open("select mode.png"))
-    panel = Label(mode, image=img1)
+    image_one = ImageTk.PhotoImage(Image.open("select mode.png"))
+    panel = Label(mode, image=image_one)
     panel.pack(side="bottom", fill="both")
 
     mode.bind("<KeyRelease>", lambda event: change_mode(event, mode))
