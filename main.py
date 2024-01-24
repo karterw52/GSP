@@ -1,6 +1,5 @@
-###########################
-#Chat GPT Refactored our code
-
+#######################
+# ChatGPT helped Refactor our code
 
 
 from tkinter import *
