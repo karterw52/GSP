@@ -1,6 +1,6 @@
 # GSP
 Our GSP is our take on the addicting game Snake!
-The game follows the original version in which you try and last the longest by collecting as many apples as possible
+The game follows the original version in which you try and last the longest by collecting as many apples as possible.
 Our take on the game allows you to select specific modes for a more engaging and fun epierience. 
 Some modes feature members of our group and some famous people as well as members of other groups are included
 
@@ -15,11 +15,11 @@ When the game board pops up, YOU MUST CLICK ON THE SCREEN. If you do not click t
 there is a secret hidden mode that can be activated by solving this equation 1000000000^0 + 8 = ?? (The answer is the key you press)
 
 # Packages
-Tkinter
-pillow
-from pil, imported ImageTk, Image
-random
-time
-winsound
-threading
+Tkinter,
+pillow,
+from pil, imported ImageTk, Image, 
+random, 
+time, 
+winsound, 
+threading, 
 database
